@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_kuldi_35_state_management_provider/screens/cart_screen.dart';
+import '../providers/cart.dart';
 import 'package:provider/provider.dart';
 
 import './screens/products_overview_screen.dart';
@@ -12,8 +14,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => Products(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Cart(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Products(),
+        )
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MyShop',
@@ -25,6 +34,7 @@ class MyApp extends StatelessWidget {
         home: ProductsOverviewScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
+          CartScreen.routeName: (ctx) => CartScreen(),
         },
       ),
     );
